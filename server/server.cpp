@@ -1327,12 +1327,11 @@ int handler(const char *req, int fd) { // 1: exit, 0: otherwise
     broadcasts.clear();
     mapping(fd, 0);
     int res = middleware(cid, cmd);
+    mapping(fd, 1);
     if (cmd[0] == "exit" && res == 0) {
         writeMsg(fd, ".EXIT", cid, res);
         return 1;
     }
-
-    mapping(fd, 1);
     writeMsg(fd, msgs[cid][res], cid, res);
     broadcast();
     return 0;
